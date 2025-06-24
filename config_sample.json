@@ -1,0 +1,25 @@
+{
+  "iriStem": "https://data.my-institute.org/",
+  "publisher": {
+    "name": "My Institute, Department of Epidemiology",
+    "homepage": "https://epi.my-institute.org",
+    "type": "http://healthdataportal.eu/vocabulary/publisher-type/RESEARCH_INSTITUTE",
+    "trustedDataHolder": true,
+    "note": "generated via mds2hdcat"
+  },
+  "hdab": {
+    "name": "My Institute -- Data Access Committee",
+    "homepage": "https://dac.my-institute.org",
+    "mbox": "mailto:dac@my-institute.org"
+  },
+  "contact": {
+    "name": "Metadata Helpdesk",
+    "homepage": "https://data.my-institute.org/help",
+    "mbox": "mailto:helpdesk@my-institute.org"
+  },
+  "defaults": {
+    "license": "https://creativecommons.org/licenses/by/4.0/",
+    "theme": "http://eurovoc.europa.eu/100152",
+    "byteSize": 12345
+  }
+}

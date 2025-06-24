@@ -1,0 +1,334 @@
+{
+  "data": {
+    "id": "3",
+    "type": "projects",
+    "attributes": {
+      "discussion_links": [],
+      "extended_attributes": {
+        "extended_metadata_type_id": "33",
+        "attribute_map": {
+          "Resource_identifier_Project": "10.60493/31mg4-mfq53",
+          "Resource_classification_Project": {
+            "Resource_classification_type_Project": "Study"
+          },
+          "Resource_titles_Project": [
+            {
+              "Resource_titles_text_Project": "Daytime experiences shape neural activity and dream content",
+              "Resource_titles_language_Project": "English"
+            }
+          ],
+          "Resource_acronyms_Project": [
+            {
+              "Resource_acronyms_text_Project": "Daytime experiences shape neural activity and dream content",
+              "Resource_acronyms_language_Project": "English"
+            }
+          ],
+          "Resource_descriptions_Project": [
+            {
+              "Resource_descriptions_text_Project": "Dream EEG and Mentation (DREAM) dataset",
+              "Resource_descriptions_language_Project": "English"
+            }
+          ],
+          "Resource_keywords_Project": [
+            {
+              "Resource_keywords_label_Project": ""
+            }
+          ],
+          "Resource_languages_Project": [
+            "English"
+          ],
+          "Resource_webpage_Project": "https://freidata.uni-freiburg.de/records/31mg4-mfq53",
+          "Resource_contributors_Project": [
+            {
+              "Resource_contributors_nameType_Project": "Personal",
+              "Resource_contributors_organisational_Project": {
+                "Resource_contributors_organisational_type_Project": "Funder (public)",
+                "Resource_contributors_organisational_fundingIds_Project": "",
+                "Resource_contributors_organisational_name_Project": "Albert-Ludwigs-Universität Freiburg, Eberhard Karls Universität Tübingen, Ludwig-Maximilians-Universität München"
+              },
+              "Resource_contributors_personal_Project": {
+                "Resource_contributors_personal_type_Project": null,
+                "Resource_contributors_personal_givenName_Project": "D.",
+                "Resource_contributors_personal_familyName_Project": "Kumral",
+                "Resource_contributors_personal_identifiers_Project": [
+                  {
+                    "Resource_contributors_personal_identifiers_identifier_Project": "",
+                    "Resource_contributors_personal_identifiers_scheme_Project": null
+                  },
+                  {
+                    "Resource_contributors_personal_identifiers_identifier_Project": "",
+                    "Resource_contributors_personal_identifiers_scheme_Project": null
+                  },
+                  {
+                    "Resource_contributors_personal_identifiers_identifier_Project": "",
+                    "Resource_contributors_personal_identifiers_scheme_Project": null
+                  }
+                ]
+              },
+              "Resource_contributors_email_Project": "",
+              "Resource_contributors_phone_Project": "",
+              "Resource_contributors_affiliations_Project": [
+                {
+                  "Resource_contributors_affiliations_name_Project": "",
+                  "Resource_contributors_affiliations_address_Project": "",
+                  "Resource_contributors_affiliations_webpage_Project": "",
+                  "Resource_contributors_affiliations_identifiers_Project": [
+                    {
+                      "Resource_contributors_affiliations_identifiers_identifier_Project": "",
+                      "Resource_contributors_affiliations_identifiers_scheme_Project": null
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "Resource_idsAlternative_Project": [
+            {
+              "Resource_idsAlternative_scheme_Project": null,
+              "Resource_idsAlternative_identifier_Project": ""
+            }
+          ],
+          "Resource_nutritionalData_Project": false,
+          "Resource_chronicDiseases_Project": false,
+          "Design_Project": {
+            "Design_primaryDesign_Project": "Interventional",
+            "Design_studyType_Project": {
+              "Design_studyType_interventional_Project": [
+                "Unknown"
+              ],
+              "Design_studyType_nonInterventional_Project": []
+            },
+            "Design_conditions_Project": [
+              {
+                "Design_conditions_label_Project": "",
+                "Design_conditions_classification_Project": null,
+                "Design_conditions_code_Project": ""
+              }
+            ],
+            "Design_groupsOfDiseases_Project": {
+              "Design_groupsOfDiseases_generally_Project": [],
+              "Design_groupsOfDiseases_conditions_Project": []
+            },
+            "Design_mortalityData_Project": "No",
+            "Design_administrativeInformation_Project": {
+              "Design_administrativeInformation_ethicsCommitteeApproval_Project": "Request for approval submitted, approval granted",
+              "Design_administrativeInformation_status_Project": "Completed: Recruitment, data collection, and data quality management completed normally",
+              "Design_administrativeInformation_statusEnrollingByInvitation_Project": "Yes",
+              "Design_administrativeInformation_startDate_Project": "",
+              "Design_administrativeInformation_endDate_Project": ""
+            },
+            "Design_centers_Project": "Multicentric",
+            "Design_centersNumber_Project": 3,
+            "Design_dataProviders_Project": "Several data providers",
+            "Design_dataProvidersNumber_Project": 3,
+            "Design_subject_Project": "Person",
+            "Design_eligibilityCriteria_Project": {
+              "Design_eligibilityCriteria_ageMin_Project": {
+                "Design_eligibilityCriteria_ageMin_number_Project": "",
+                "Design_eligibilityCriteria_ageMin_timeUnit_Project": null
+              },
+              "Design_eligibilityCriteria_ageMax_Project": {
+                "Design_eligibilityCriteria_ageMax_number_Project": "",
+                "Design_eligibilityCriteria_ageMax_timeUnit_Project": null
+              },
+              "Design_eligibilityCriteria_genders_Project": [
+                "Not applicable"
+              ],
+              "Design_eligibilityCriteria_inclusionCriteria_Project": "",
+              "Design_eligibilityCriteria_exclusionCriteria_Project": ""
+            },
+            "Design_population_Project": {
+              "Design_population_coverage_Project": "Regional",
+              "Design_population_countries_Project": [
+                "Germany"
+              ],
+              "Design_population_region_Project": ""
+            },
+            "Design_interventions_Project": [
+              {
+                "Design_interventions_name_Project": "Audiobook listening",
+                "Design_interventions_type_Project": "Device (including sham)",
+                "Design_interventions_description_Project": "The subjects were listening to an audiobook before and while falling asleep and were instructed to memorize the narrated contents.",
+                "Design_interventions_armsLabel_Project": ""
+              }
+            ],
+            "Design_exposures_Project": [
+              {
+                "Design_exposures_name_Project": "Type and content of the audiobook used, subject age, amount of sleep in the night before, sleep architecture (e.g. REM sleep length)",
+                "Design_exposures_type_Project": null,
+                "Design_exposures_description_Project": "",
+                "Design_exposures_groupsLabel_Project": ""
+              }
+            ],
+            "Design_outcomes_Project": [
+              {
+                "Design_outcomes_title_Project": "Narrating dreams",
+                "Design_outcomes_description_Project": "The subjects ",
+                "Design_outcomes_type_Project": null,
+                "Design_outcomes_timeFrame_Project": ""
+              }
+            ],
+            "Design_comment_Project": "",
+            "Design_assessments_Project": [],
+            "Design_dataSharingPlan_Project": {
+              "Design_dataSharingPlan_generally_Project": "Yes, there is a plan to make data available",
+              "Design_dataSharingPlan_supportingInformation_Project": [
+                "Study protocol"
+              ],
+              "Design_dataSharingPlan_timeFrame_Project": "The data is freely available in the referenced repository of the Freiburg University and there is no plan to unpublish the data",
+              "Design_dataSharingPlan_accessCriteria_Project": "",
+              "Design_dataSharingPlan_description_Project": "",
+              "Design_dataSharingPlan_datashield_Project": null,
+              "Design_dataSharingPlan_requestData_Project": "",
+              "Design_dataSharingPlan_url_Project": "",
+              "Design_dataSharingPlan_recordLinkage_Project": ""
+            },
+            "Design_nonInterventional_Project": {
+              "Design_nonInterventional_timePerspectives_Project": [],
+              "Design_nonInterventional_targetFollowUpDuration_Project": {
+                "Design_nonInterventional_targetFollowUpDuration_number_Project": "",
+                "Design_nonInterventional_targetFollowUpDuration_timeUnit_Project": null,
+                "Design_nonInterventional_targetFollowUpDuration_frequency_Project": ""
+              },
+              "Design_nonInterventional_biospecimenRetention_Project": [],
+              "Design_nonInterventional_biospecimenDescription_Project": ""
+            },
+            "Design_interventional_Project": {
+              "Design_interventional_phase_Project": null,
+              "Design_interventional_masking_Project": {
+                "Design_interventional_masking_general_Project": "",
+                "Design_interventional_masking_roles_Project": [],
+                "Design_interventional_masking_description_Project": ""
+              },
+              "Design_interventional_allocation_Project": null,
+              "Design_interventional_offLabelUse_Project": null
+            }
+          }
+        }
+      },
+      "avatar": null,
+      "title": "Daytime experiences shape neural activity and dream content",
+      "description": "Dream EEG and Mentation (DREAM) dataset",
+      "web_page": "https://freidata.uni-freiburg.de/records/31mg4-mfq53",
+      "wiki_page": null,
+      "default_license": "CC-BY-4.0",
+      "start_date": null,
+      "end_date": null,
+      "members": [
+        {
+          "person_id": "1",
+          "institution_id": "2"
+        }
+      ],
+      "topic_annotations": []
+    },
+    "relationships": {
+      "project_administrators": {
+        "data": [
+          {
+            "id": "1",
+            "type": "people"
+          }
+        ]
+      },
+      "pals": {
+        "data": []
+      },
+      "asset_housekeepers": {
+        "data": []
+      },
+      "asset_gatekeepers": {
+        "data": []
+      },
+      "organisms": {
+        "data": []
+      },
+      "human_diseases": {
+        "data": []
+      },
+      "people": {
+        "data": [
+          {
+            "id": "1",
+            "type": "people"
+          }
+        ]
+      },
+      "institutions": {
+        "data": [
+          {
+            "id": "2",
+            "type": "institutions"
+          }
+        ]
+      },
+      "programmes": {
+        "data": []
+      },
+      "investigations": {
+        "data": []
+      },
+      "studies": {
+        "data": []
+      },
+      "assays": {
+        "data": []
+      },
+      "data_files": {
+        "data": [
+          {
+            "id": "1",
+            "type": "data_files"
+          },
+          {
+            "id": "2",
+            "type": "data_files"
+          }
+        ]
+      },
+      "file_templates": {
+        "data": []
+      },
+      "placeholders": {
+        "data": []
+      },
+      "models": {
+        "data": []
+      },
+      "sops": {
+        "data": []
+      },
+      "publications": {
+        "data": []
+      },
+      "presentations": {
+        "data": []
+      },
+      "events": {
+        "data": []
+      },
+      "documents": {
+        "data": []
+      },
+      "workflows": {
+        "data": []
+      },
+      "collections": {
+        "data": []
+      }
+    },
+    "links": {
+      "self": "/projects/3"
+    },
+    "meta": {
+      "created": "2025-05-05T14:09:26.000Z",
+      "modified": "2025-05-05T15:07:17.000Z",
+      "api_version": "0.3",
+      "base_url": "http://localhost:3000",
+      "uuid": "79ba1c80-0be8-013e-c236-2e94934b1561"
+    }
+  },
+  "jsonapi": {
+    "version": "1.0"
+  }
+}
