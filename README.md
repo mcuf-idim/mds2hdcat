@@ -1,7 +1,7 @@
 # mds2hdcat · NFDI4Health-MDS → Health DCAT-AP
 
 Convert a single **NFDI4Health metadata record ([MDS JSON](https://simplifier.net/guide/nfdi4health---metadata-schema---implementationguide))** into valid  
-**[Health DCAT-AP](https://healthdcat-ap.github.io/) 0.1.1 (Open-Data profile) JSON-LD** ready for Europeah Health Data Space (EHDS) catalogues.
+**[Health DCAT-AP](https://healthdcat-ap.github.io/) 0.1.1 (Open-Data profile) JSON-LD** ready for [European Health Data Space](https://www.european-health-data-space.com/) (EHDS) catalogues.
 
 ---
 
