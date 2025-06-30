@@ -40,3 +40,7 @@ shacl validate \
      --data   study-hdcat.jsonld \
      --shapes shapes/HealthDCAT-AP_opendata-shapes-v0.1.1.ttl
 ```
+
+## License
+- **Code:** This software is licensed under the MIT license. See [LICENSE](LICENSE) file for details.
+- **External data:** The data files located in `mds-test-data/` are provided for demonstration purposes only and are **not covered** by the project's MIT license. Its usage rights remain subject to the original terms set by the data provider.
