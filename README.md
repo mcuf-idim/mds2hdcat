@@ -6,7 +6,7 @@ Convert a single **NFDI4Health metadata record ([MDS JSON](https://simplifier.ne
 ---
 
 ## Requirements
-* **Bash ≥ 3.2** (Linux)
+* **Bash ≥ 3.2** (GNU/Linux)
 * **jq ≥ 1.6** (JSON processor)
 * *(optional)* **[Apache Jena `shacl`](https://jena.apache.org/documentation/shacl/)** for validation
 
