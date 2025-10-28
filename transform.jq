@@ -1,4 +1,3 @@
-
 ################################################################################
 # Inputs
 ################################################################################
@@ -10,6 +9,7 @@ def mds : $mds[0];
 ################################################################################
 def m  : mds.data.attributes.extended_attributes.attribute_map;
 def id : m.Resource_identifier_Project;
+def studyContactEmail : m.Resource_contributors_Project[0]?.Resource_contributors_email_Project;
 def title : m.Resource_titles_Project[0].Resource_titles_text_Project;
 def desc  : m.Resource_descriptions_Project[0].Resource_descriptions_text_Project;
 def lang2 : (m.Resource_languages_Project[0] // "en") | ascii_downcase[0:2];
@@ -19,6 +19,7 @@ def langIRI :
      else                 "ENG" end)
   | "http://publications.europa.eu/resource/authority/language/" + .;
 def page : m.Resource_webpage_Project;
+def keywords : [m.Resource_keywords_Project[]?.Resource_keywords_label_Project] | map(select(. != null and . != ""));
 def issued   : mds.data.meta.created;
 def modified : mds.data.meta.modified;
 
@@ -106,13 +107,12 @@ def nnint($n): { "@value": ($n|tostring), "@type":"xsd:nonNegativeInteger" };
   },
 
   "@graph":[
-    {
+    ({
       "@id": dataset_id,
       "type":"dcat:Dataset",
       "identifier": id,
       "title": { "@value": title, "@language": lang2 },
       "description": { "@value": desc, "@language": lang2 },
-      "landingPage": { "@id": page },
       "creator": { "@id": pub_id },
       "publisher": { "@id": pub_id },
       "hdab": { "@id": hdab_id },
@@ -123,7 +123,6 @@ def nnint($n): { "@value": ($n|tostring), "@type":"xsd:nonNegativeInteger" };
       "applicableLegislation": { "@id":"http://data.europa.eu/eli/reg/2016/679/oj" },
       "distribution": { "@id": dist_id },
       "theme": { "@id": cfg.defaults.theme },
-      "keyword": [ "EEG","sleep","dream" ],
       "contactPoint": { "@id": cp_bnode },
       "healthCategory": health_cat,
       "personalData": true,
@@ -133,7 +132,9 @@ def nnint($n): { "@value": ($n|tostring), "@type":"xsd:nonNegativeInteger" };
       "maxTypicalAge": nnint(30),
       "language": { "@id": langIRI },
       "spatial": { "@id":"http://publications.europa.eu/resource/authority/country/DEU" }
-    },
+    } 
+    + (if keywords | length > 0 then {"keyword": keywords} else {} end)
+    + (if page then {"landingPage": {"@id": page}} else {} end)),
     {
       "@id": pub_id,
       "type":"foaf:Organization",
