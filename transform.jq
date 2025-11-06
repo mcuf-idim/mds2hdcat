@@ -9,7 +9,9 @@ def mds : $mds[0];
 ################################################################################
 def m  : mds.data.attributes.extended_attributes.attribute_map;
 def id : m.Resource_identifier_Project;
-def studyContactEmail : m.Resource_contributors_Project[0]?.Resource_contributors_email_Project;
+
+# Note: We intentionally don't extract contact from MDS contributors
+# as they represent scientific creators, not administrative contacts
 def title : m.Resource_titles_Project[0].Resource_titles_text_Project;
 def desc  : m.Resource_descriptions_Project[0].Resource_descriptions_text_Project;
 def lang2 : (m.Resource_languages_Project[0] // "en") | ascii_downcase[0:2];
@@ -28,22 +30,64 @@ def modified : mds.data.meta.modified;
 ################################################################################
 def iriStem : cfg.iriStem;
 def dataset_id : (iriStem + "dataset/" + id);
-def pub_id     : (iriStem + "publisher/" + (id|@uri));
-def hdab_id    : (iriStem + "hdab/" + (id|@uri));
+def pub_id     : (iriStem + "publisher");
+def hdab_id    : cfg.hdab["@id"];
 def dist_id    : dataset_id + "/dist1";
 def cp_bnode   : "_:contact";
+
+# Extract primary creator from MDS contributors (first personal contributor)
+def creator_id : 
+  (m.Resource_contributors_Project[]? | 
+   select(.Resource_contributors_nameType_Project == "Personal") | 
+   .Resource_contributors_personal_Project) as $person |
+  if $person.Resource_contributors_personal_familyName_Project and 
+     ($person.Resource_contributors_personal_familyName_Project != "") then
+    "_:creator"
+  else
+    null
+  end;
+
+def creator_node :
+  (m.Resource_contributors_Project[]? | 
+   select(.Resource_contributors_nameType_Project == "Personal") | 
+   .Resource_contributors_personal_Project) as $person |
+  if $person.Resource_contributors_personal_familyName_Project and 
+     ($person.Resource_contributors_personal_familyName_Project != "") then
+    {
+      "@id": "_:creator",
+      "type": "foaf:Person",
+      "name": (($person.Resource_contributors_personal_givenName_Project // "") + " " + 
+               ($person.Resource_contributors_personal_familyName_Project // "")) | gsub("^\\s+|\\s+$"; "")
+    }
+  else
+    null
+  end;
 
 ################################################################################
 # Helpers
 ################################################################################
 def health_cat :
-  if (m.Design_Project.Design_primaryDesign_Project // "") | test("(?i)interventional")
-  then { "@id":"https://semiceu.github.io/ehds/vocabulary/health-category/INTERVENTIONAL_STUDY" }
-  else { "@id":"https://semiceu.github.io/ehds/vocabulary/health-category/OBSERVATIONAL_STUDY" } end;
+  (m.Design_Project.Design_primaryDesign_Project // "") as $design |
+  if $design | test("(?i)interventional") then
+    { "@id":"https://semiceu.github.io/ehds/vocabulary/health-category/INTERVENTIONAL_STUDY" }
+  elif $design | test("(?i)observational|non.?interventional") then
+    { "@id":"https://semiceu.github.io/ehds/vocabulary/health-category/OBSERVATIONAL_STUDY" }
+  else
+    null
+  end;
 
 def licenceIRI : cfg.defaults.license;
 
 def nnint($n): { "@value": ($n|tostring), "@type":"xsd:nonNegativeInteger" };
+
+# Extract age ranges from MDS eligibility criteria
+def minAge : 
+  (m.Design_Project.Design_eligibilityCriteria_Project.Design_eligibilityCriteria_ageMin_Project.Design_eligibilityCriteria_ageMin_number_Project // null) |
+  if . and (. != "") and (. != null) then nnint(.) else null end;
+
+def maxAge :
+  (m.Design_Project.Design_eligibilityCriteria_Project.Design_eligibilityCriteria_ageMax_Project.Design_eligibilityCriteria_ageMax_number_Project // null) |
+  if . and (. != "") and (. != null) then nnint(.) else null end;
 
 ################################################################################
 # JSON-LD output
@@ -106,14 +150,13 @@ def nnint($n): { "@value": ($n|tostring), "@type":"xsd:nonNegativeInteger" };
     "type":"@type"
   },
 
-  "@graph":[
+  "@graph": ([
     ({
       "@id": dataset_id,
       "type":"dcat:Dataset",
       "identifier": id,
       "title": { "@value": title, "@language": lang2 },
       "description": { "@value": desc, "@language": lang2 },
-      "creator": { "@id": pub_id },
       "publisher": { "@id": pub_id },
       "hdab": { "@id": hdab_id },
       "issued": issued,
@@ -124,17 +167,16 @@ def nnint($n): { "@value": ($n|tostring), "@type":"xsd:nonNegativeInteger" };
       "distribution": { "@id": dist_id },
       "theme": { "@id": cfg.defaults.theme },
       "contactPoint": { "@id": cp_bnode },
-      "healthCategory": health_cat,
       "personalData": true,
-      "numberOfRecords": nnint(20),
-      "numberOfUniqueIndividuals": nnint(20),
-      "minTypicalAge": nnint(20),
-      "maxTypicalAge": nnint(30),
       "language": { "@id": langIRI },
       "spatial": { "@id":"http://publications.europa.eu/resource/authority/country/DEU" }
     } 
+    + (if creator_id then {"creator": { "@id": creator_id }} else {} end)
     + (if keywords | length > 0 then {"keyword": keywords} else {} end)
-    + (if page then {"landingPage": {"@id": page}} else {} end)),
+    + (if page then {"landingPage": {"@id": page}} else {} end)
+    + (if health_cat then {"healthCategory": health_cat} else {} end)
+    + (if minAge then {"minTypicalAge": minAge} else {} end)
+    + (if maxAge then {"maxTypicalAge": maxAge} else {} end)),
     {
       "@id": pub_id,
       "type":"foaf:Organization",
@@ -167,6 +209,7 @@ def nnint($n): { "@value": ($n|tostring), "@type":"xsd:nonNegativeInteger" };
       "name": cfg.contact.name,
       "mbox": { "@id": cfg.contact.mbox },
       "homepage": { "@id": cfg.contact.homepage }
-    }
-  ]
+    },
+    creator_node
+  ] | map(select(. != null)))
 }
