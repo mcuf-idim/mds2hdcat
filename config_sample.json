@@ -21,6 +21,8 @@
   "defaults": {
     "license": "https://creativecommons.org/licenses/by/4.0/",
     "theme": "http://eurovoc.europa.eu/100152",
-    "byteSize": 12345
+    "byteSize": 12345,
+    "accessRights": "NON_PUBLIC",
+    "healthCategory": "http://13.81.34.152:1101/resource/authority/healthcategories/EHCT"
   }
 }
