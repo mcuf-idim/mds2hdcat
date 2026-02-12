@@ -20,7 +20,7 @@ def langIRI :
      elif    lang2=="fr" then "FRA"
      else                 "ENG" end)
   | "http://publications.europa.eu/resource/authority/language/" + .;
-def page : m.Resource_webpage_Project;
+def page : m.Resource_webpage_Project | if . == "" or . == null then null else . end;
 def keywords : [m.Resource_keywords_Project[]?.Resource_keywords_label_Project] | map(select(. != null and . != ""));
 def issued   : mds.data.meta.created;
 def modified : mds.data.meta.modified;
@@ -37,10 +37,11 @@ def cp_bnode   : "_:contact";
 
 # Extract primary creator from MDS contributors (first personal contributor)
 def creator_id : 
-  (m.Resource_contributors_Project[]? | 
+  [m.Resource_contributors_Project[]? | 
    select(.Resource_contributors_nameType_Project == "Personal") | 
-   .Resource_contributors_personal_Project) as $person |
-  if $person.Resource_contributors_personal_familyName_Project and 
+   .Resource_contributors_personal_Project][0] as $person |
+  if $person and
+     $person.Resource_contributors_personal_familyName_Project and 
      ($person.Resource_contributors_personal_familyName_Project != "") then
     "_:creator"
   else
@@ -48,10 +49,11 @@ def creator_id :
   end;
 
 def creator_node :
-  (m.Resource_contributors_Project[]? | 
+  [m.Resource_contributors_Project[]? | 
    select(.Resource_contributors_nameType_Project == "Personal") | 
-   .Resource_contributors_personal_Project) as $person |
-  if $person.Resource_contributors_personal_familyName_Project and 
+   .Resource_contributors_personal_Project][0] as $person |
+  if $person and
+     $person.Resource_contributors_personal_familyName_Project and 
      ($person.Resource_contributors_personal_familyName_Project != "") then
     {
       "@id": "_:creator",
@@ -66,17 +68,31 @@ def creator_node :
 ################################################################################
 # Helpers
 ################################################################################
+# healthCategory from config (EHDS Art.51 data source type, not MDS study design).
+# The controlled vocabulary is mandated by Health DCAT-AP Release 6, §10.3.1:
+#   http://13.81.34.152:1101/resource/authority/healthcategories/
+# NOTE: The vocabulary server currently uses a development IP address.
+# This IRI is expected to move to a permanent domain once the EU
+# Publications Office publishes the vocabulary as a Named Authority List.
+# See: https://healthdataeu.pages.code.europa.eu/healthdcat-ap/releases/release-6/
 def health_cat :
-  (m.Design_Project.Design_primaryDesign_Project // "") as $design |
-  if $design | test("(?i)interventional") then
-    { "@id":"https://semiceu.github.io/ehds/vocabulary/health-category/INTERVENTIONAL_STUDY" }
-  elif $design | test("(?i)observational|non.?interventional") then
-    { "@id":"https://semiceu.github.io/ehds/vocabulary/health-category/OBSERVATIONAL_STUDY" }
-  else
-    null
-  end;
+  cfg.defaults.healthCategory as $hc |
+  if $hc and $hc != "" then { "@id": $hc } else null end;
 
 def licenceIRI : cfg.defaults.license;
+
+# Access rights: extract from MDS dataSharingPlan, fall back to config default
+# EU vocabulary: PUBLIC, RESTRICTED, NON_PUBLIC
+# Only exact matches are trusted; anything else falls back to config default
+def accessRightsIRI :
+  (m.Design_Project.Design_dataSharingPlan_Project.Design_dataSharingPlan_generally_Project // "") as $plan |
+  (cfg.defaults.accessRights // "NON_PUBLIC") as $default |
+  (if   $plan == "PUBLIC" then "PUBLIC"
+   elif $plan == "RESTRICTED" then "RESTRICTED"
+   elif $plan == "NON_PUBLIC" then "NON_PUBLIC"
+   else $default
+   end) |
+  "http://publications.europa.eu/resource/authority/access-right/" + .;
 
 def nnint($n): { "@value": ($n|tostring), "@type":"xsd:nonNegativeInteger" };
 
@@ -162,7 +178,7 @@ def maxAge :
       "issued": issued,
       "modified": modified,
       "license": licenceIRI,
-      "accessRights": { "@id":"http://publications.europa.eu/resource/authority/access-right/PUBLIC" },
+      "accessRights": { "@id": accessRightsIRI },
       "applicableLegislation": { "@id":"http://data.europa.eu/eli/reg/2016/679/oj" },
       "distribution": { "@id": dist_id },
       "theme": { "@id": cfg.defaults.theme },
