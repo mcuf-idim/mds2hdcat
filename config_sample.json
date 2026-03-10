@@ -23,6 +23,11 @@
     "theme": "http://eurovoc.europa.eu/100152",
     "byteSize": 12345,
     "accessRights": "NON_PUBLIC",
-    "healthCategory": "http://13.81.34.152:1101/resource/authority/healthcategories/EHCT"
+    "healthCategory": "http://13.81.34.152:1101/resource/authority/healthcategories/EHCT",
+    "language": "en",
+    "applicableLegislation": "http://data.europa.eu/eli/reg/2016/679/oj",
+    "spatial": "http://publications.europa.eu/resource/authority/country/DEU",
+    "personalData": true,
+    "mediaType": "https://www.iana.org/assignments/media-types/text/html"
   }
 }

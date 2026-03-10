@@ -14,7 +14,7 @@ def id : m.Resource_identifier_Project;
 # as they represent scientific creators, not administrative contacts
 def title : m.Resource_titles_Project[0].Resource_titles_text_Project;
 def desc  : m.Resource_descriptions_Project[0].Resource_descriptions_text_Project;
-def lang2 : (m.Resource_languages_Project[0] // "en") | ascii_downcase[0:2];
+def lang2 : (m.Resource_languages_Project[0] // cfg.defaults.language) | ascii_downcase[0:2];
 def langIRI :
     (if      lang2=="de" then "DEU"
      elif    lang2=="fr" then "FRA"
@@ -86,7 +86,7 @@ def licenceIRI : cfg.defaults.license;
 # Only exact matches are trusted; anything else falls back to config default
 def accessRightsIRI :
   (m.Design_Project.Design_dataSharingPlan_Project.Design_dataSharingPlan_generally_Project // "") as $plan |
-  (cfg.defaults.accessRights // "NON_PUBLIC") as $default |
+  cfg.defaults.accessRights as $default |
   (if   $plan == "PUBLIC" then "PUBLIC"
    elif $plan == "RESTRICTED" then "RESTRICTED"
    elif $plan == "NON_PUBLIC" then "NON_PUBLIC"
@@ -179,13 +179,13 @@ def maxAge :
       "modified": modified,
       "license": licenceIRI,
       "accessRights": { "@id": accessRightsIRI },
-      "applicableLegislation": { "@id":"http://data.europa.eu/eli/reg/2016/679/oj" },
+      "applicableLegislation": { "@id": cfg.defaults.applicableLegislation },
       "distribution": { "@id": dist_id },
       "theme": { "@id": cfg.defaults.theme },
       "contactPoint": { "@id": cp_bnode },
-      "personalData": true,
+      "personalData": cfg.defaults.personalData,
       "language": { "@id": langIRI },
-      "spatial": { "@id":"http://publications.europa.eu/resource/authority/country/DEU" }
+      "spatial": { "@id": cfg.defaults.spatial }
     } 
     + (if creator_id then {"creator": { "@id": creator_id }} else {} end)
     + (if keywords | length > 0 then {"keyword": keywords} else {} end)
@@ -213,11 +213,11 @@ def maxAge :
       "@id": dist_id,
       "type":"dcat:Distribution",
       "accessURL": { "@id": (page // dataset_id) },
-      "mediaType": { "@id":"https://www.iana.org/assignments/media-types/text/html" },
-      "format": { "@id":"https://www.iana.org/assignments/media-types/text/html" },
+      "mediaType": { "@id": cfg.defaults.mediaType },
+      "format": { "@id": cfg.defaults.mediaType },
       "byteSize": nnint(cfg.defaults.byteSize),
       "rights": { "@id": licenceIRI },
-      "applicableLegislation": { "@id":"http://data.europa.eu/eli/reg/2016/679/oj" }
+      "applicableLegislation": { "@id": cfg.defaults.applicableLegislation }
     },
     {
       "@id": cp_bnode,
